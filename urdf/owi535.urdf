@@ -1,0 +1,73 @@
+<robot name="test_robot">
+  <link name="base_link">
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/accupack.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="base" >
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/shoulder.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="humerus" >
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/humerus.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="radius" >
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/radius.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="gripper" >
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/gripper.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="rotationbase" type="revolute">
+    <parent link="base_link"/>
+    <child link="base"/>
+    <origin xyz="0 0 21" rpy="0 0 0" />
+    <axis xyz="0 0 1" />
+    <limit lower="-2.57" upper="2.57" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <joint name="shoulder" type="revolute">
+    <parent link="base"/>
+    <child link="humerus"/>
+    <origin xyz="0 0 7" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.57" upper="1.27" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <joint name="elbow" type="revolute">
+    <parent link="humerus"/>
+    <child link="radius"/>
+    <origin xyz="0 0 50" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.00" upper="4.34" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <joint name="wrist" type="revolute">
+    <parent link="radius"/>
+    <child link="gripper"/>
+    <origin xyz="-50 0 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.57" upper="1.57" effort="3" velocity="1.178465545" />
+  </joint>
+</robot>

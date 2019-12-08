@@ -15,46 +15,6 @@
     </visual>
   </link>
 
-  <link name="humerus" >
-    <visual>
-      <geometry>
-          <mesh filename="package://owi535/meshes/humerus.dae"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <link name="radius" >
-    <visual>
-      <geometry>
-          <mesh filename="package://owi535/meshes/radius.dae"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <link name="gripper_base" >
-    <visual>
-      <geometry>
-          <mesh filename="package://owi535/meshes/gripper_base.dae"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <link name="gripper_left" >
-    <visual>
-      <geometry>
-          <mesh filename="package://owi535/meshes/gripper_left.dae"/>
-      </geometry>
-    </visual>
-  </link>
-
-  <link name="gripper_right" >
-    <visual>
-      <geometry>
-          <mesh filename="package://owi535/meshes/gripper_right.dae"/>
-      </geometry>
-    </visual>
-  </link>
-
   <joint name="rotationbase" type="revolute">
     <parent link="base_link"/>
     <child link="base"/>
@@ -62,6 +22,14 @@
     <axis xyz="0 0 1" />
     <limit lower="-2.57" upper="2.57" effort="3" velocity="1.178465545" />
   </joint>
+
+  <link name="humerus" >
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/humerus.dae"/>
+      </geometry>
+    </visual>
+  </link>
 
   <joint name="shoulder" type="revolute">
     <parent link="base"/>
@@ -71,6 +39,14 @@
     <limit lower="-1.57" upper="1.27" effort="3" velocity="1.178465545" />
   </joint>
 
+  <link name="radius" >
+    <visual>
+      <geometry>
+          <mesh filename="package://owi535/meshes/radius.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
   <joint name="elbow" type="revolute">
     <parent link="humerus"/>
     <child link="radius"/>
@@ -79,29 +55,136 @@
     <limit lower="-1.00" upper="4.34" effort="3" velocity="1.178465545" />
   </joint>
 
-  <joint name="wrist" type="revolute">
+  <link name="wrist_base">
+    <visual>
+      <geometry>
+          <mesh filename="package://daru/meshes/wrist.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="wrist_base" type="revolute">
     <parent link="radius"/>
-    <child link="gripper_base"/>
-    <origin xyz="-50 0 0" rpy="0 0 0" />
-    <axis xyz="0 1 0" />
+    <child link="wrist_base"/>
+    <origin xyz="-50 0 0" rpy="0 0 3.14" />
+    <axis xyz="0 1.0 0" />
     <limit lower="-1.57" upper="1.57" effort="3" velocity="1.178465545" />
   </joint>
 
-  <joint name="wrist_left" type="prismatic">
-    <parent link="gripper_base"/>
-    <child link="gripper_left"/>
-    <origin rpy="0.0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 1 0" />
-    <limit lower="-4.00" upper="4.00" effort="3" velocity="1.178465545" />
+  <link name="back">
+    <visual>
+      <origin xyz="14.7 0 0" rpy="1.57 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/back.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="wrist" type="revolute">
+    <parent link="wrist_base"/>
+    <child link="back"/>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <axis xyz="0 1.0 0" />
+    <limit lower="-1.57" upper="1.57" effort="3" velocity="1.178465545" />
   </joint>
 
-  <joint name="wrist_right" type="prismatic">
-    <mimic joint="wrist_left" multiplier="-1.0" />
-    <parent link="gripper_base"/>
-    <child link="gripper_right"/>
-    <origin rpy="0.0 0 0" xyz="0 0 0"/>
-    <axis xyz="0 1 0" />
-    <limit lower="-4.00" upper="4.00" effort="3" velocity="1.178465545" />
+  <link name="left_carpal">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/left_carpal.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="left_grip" type="revolute">
+    <parent link="back"/>
+    <child link="left_carpal"/>
+    <origin xyz="14.7 4.0 0" rpy="3.14 0 0" />
+    <axis xyz="0 0 1.0" />
+    <limit lower="-1.20" upper="-0.08" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <link name="left_phalange">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/phalange.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="left_ph" type="revolute">
+    <mimic joint="left_grip" multiplier="1.0" />
+    <parent link="back"/>
+    <child link="left_phalange"/>
+    <origin xyz="20.0 2.0 0" rpy="3.14 0 0" />
+    <axis xyz="0 0 1.0" />
+    <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <link name="left_finger">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/right_finger_tip.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="left_f" type="revolute">
+    <mimic joint="left_grip" multiplier="-1.0" offset="3.14"/>
+    <parent link="left_phalange"/>
+    <child link="left_finger"/>
+    <origin xyz="8.0 0 0" rpy="0 0 3.14" />
+    <axis xyz="0 0 1.0" />
+    <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <link name="right_carpal">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/right_carpal.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="right_grip" type="revolute">
+    <mimic joint="left_grip" multiplier="-1.0" />
+    <parent link="back"/>
+    <child link="right_carpal"/>
+    <origin xyz="14.7 -4.0 0" rpy="3.14 0 0" />
+    <axis xyz="0 0 1.0" />
+    <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <link name="right_phalange">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/phalange.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="right_ph" type="revolute">
+    <mimic joint="left_grip" multiplier="-1.0" />
+    <parent link="back"/>
+    <child link="right_phalange"/>
+    <origin xyz="20.0 -2.0 0" rpy="3.14 0 0" />
+    <axis xyz="0 0 1.0" />
+    <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <link name="right_finger">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/left_finger_tip.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="right_f" type="revolute">
+    <mimic joint="right_grip" multiplier="-1.0" offset="3.14"/>
+    <parent link="right_phalange"/>
+    <child link="right_finger"/>
+    <origin xyz="8.0 0 0" rpy="0 0 3.14" />
+    <axis xyz="0 0 1.0" />
+    <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
   </joint>
 
 </robot>

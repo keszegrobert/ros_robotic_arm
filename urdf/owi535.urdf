@@ -62,7 +62,7 @@
       </geometry>
     </visual>
   </link>
-  <joint name="wrist_base" type="revolute">
+  <joint name="wrist_base" type="fixed">
     <parent link="radius"/>
     <child link="wrist_base"/>
     <origin xyz="-50 0 0" rpy="0 0 3.14" />
@@ -84,6 +84,20 @@
     <origin xyz="0 0 0" rpy="0 0 0" />
     <axis xyz="0 1.0 0" />
     <limit lower="-1.57" upper="1.57" effort="3" velocity="1.178465545" />
+  </joint>
+
+  <link name="shield">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+          <mesh filename="package://owi535/meshes/shield.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint name="shield_fix" type="fixed">
+    <parent link="back"/>
+    <child link="shield"/>
+    <origin xyz="0 0 0" rpy="0 0 3.14" />
   </joint>
 
   <link name="left_carpal">

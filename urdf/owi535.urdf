@@ -72,7 +72,7 @@
     <link name="shoulder_motor">
         <visual>
             <geometry>
-                <mesh filename="package://owi535/meshes/shoulder.dae" />
+                <mesh filename="package://owi535/meshes/gearbox.dae" />
             </geometry>
         </visual>
         <collision>
@@ -151,7 +151,7 @@
     <link name="elbow_motor">
         <visual>
             <geometry>
-                <mesh filename="package://owi535/meshes/shoulder.dae" />
+                <mesh filename="package://owi535/meshes/gearbox.dae" />
             </geometry>
         </visual>
         <collision>
@@ -229,7 +229,7 @@
     <link name="wrist_motor">
         <visual>
             <geometry>
-                <mesh filename="package://owi535/meshes/shoulder.dae" />
+                <mesh filename="package://owi535/meshes/gearbox.dae" />
             </geometry>
         </visual>
         <collision>
@@ -389,9 +389,9 @@
     </joint>
     <link name="left_finger">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="3.14 0 0" />
             <geometry>
-                <mesh filename="package://owi535/meshes/right_finger_tip.dae" />
+                <mesh filename="package://owi535/meshes/finger_tip_link.dae" />
             </geometry>
         </visual>
         <inertial>
@@ -404,7 +404,7 @@
         <mimic joint="left_grip" multiplier="-1.0" offset="3.14" />
         <parent link="left_phalange" />
         <child link="left_finger" />
-        <origin xyz="0.0234 0 0" rpy="0 0 3.14" />
+        <origin xyz="0.0234 0 0.009" rpy="0 0 3.14" />
         <axis xyz="0 0 1.0" />
         <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
     </joint>
@@ -454,7 +454,7 @@
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
-                <mesh filename="package://owi535/meshes/left_finger_tip.dae" />
+                <mesh filename="package://owi535/meshes/finger_tip_link.dae" />
             </geometry>
         </visual>
         <inertial>
@@ -467,7 +467,7 @@
         <mimic joint="right_grip" multiplier="-1.0" offset="3.14" />
         <parent link="right_phalange" />
         <child link="right_finger" />
-        <origin xyz="0.0234 0 0" rpy="0 0 3.14" />
+        <origin xyz="0.0234 0 0.009" rpy="0 0 3.14" />
         <axis xyz="0 0 1.0" />
         <limit lower="-0.08" upper="1.20" effort="3" velocity="1.178465545" />
     </joint>

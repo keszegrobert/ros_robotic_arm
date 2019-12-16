@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.80.75 commit date:2019-07-29, commit time:14:47, hash:f6cb5f54494e</authoring_tool>
     </contributor>
-    <created>2019-12-08T00:04:11</created>
-    <modified>2019-12-08T00:04:11</modified>
+    <created>2019-12-15T13:52:24</created>
+    <modified>2019-12-15T13:52:24</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -72,7 +72,7 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="carpal_right" name="carpal_right" type="NODE">
-        <matrix sid="transform">0.3467453 0 0 0 0 0.3467453 0 0 0 0 0.3467452 0 0 0 0 1</matrix>
+        <matrix sid="transform">0.001 0 0 0 0 0.001 0 0 0 0 0.001 0 0 0 0 1</matrix>
         <instance_geometry url="#Gripper_1-mesh" name="carpal_right">
           <bind_material>
             <technique_common>

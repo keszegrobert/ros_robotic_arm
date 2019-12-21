@@ -1,17 +1,19 @@
 <robot name="test_robot">
-    <link name="base_link">
+    <link name="base_link" />
+    <link name="battery_pack">
         <collision>
             <geometry>
-                <box size="0.05 0.030 0.020"/>
+                <box size="0.22 0.114 0.043"/>
             </geometry>
+            <origin xyz="0.06 0.0 0.0215" rpy="0 0 0" />
         </collision>
-         <visual>
+        <visual>
             <geometry>
                 <mesh filename="package://owi535/meshes/battery_pack.dae" />
             </geometry>
         </visual>
         <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0.06 0.0 0.0215" rpy="0 0 0" />
             <mass value="1" />
             <inertia
               ixx="1.0" ixy="0.0" ixz="0.0"
@@ -19,17 +21,22 @@
               izz="1.0" />
         </inertial>
     </link>
+    <joint name="dummyjoint" type="fixed">
+        <parent link="base_link" />
+        <child link="battery_pack" />
+        <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
     <link name="rotation_base">
         <visual>
             <geometry>
                 <mesh filename="package://owi535/meshes/rotation_base.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -50,11 +57,11 @@
                 <mesh filename="package://owi535/meshes/switchboard.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -75,11 +82,11 @@
                 <mesh filename="package://owi535/meshes/gearbox.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -102,11 +109,11 @@
                 <mesh filename="package://owi535/meshes/humerus_link.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
-                <box size="15 5 5"/>
+                <box size="0.15 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -129,11 +136,11 @@
                 <mesh filename="package://owi535/meshes/humerus_link.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
-                <box size="15 5 5"/>
+                <box size="0.15 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -154,11 +161,11 @@
                 <mesh filename="package://owi535/meshes/gearbox.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -182,11 +189,11 @@
                 <mesh filename="package://owi535/meshes/radius_link.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
-                <box size="15 5 5"/>
+                <box size="0.15 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -207,11 +214,11 @@
                 <mesh filename="package://owi535/meshes/radius_link.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
-                <box size="15 5 5"/>
+                <box size="0.15 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />
@@ -232,11 +239,11 @@
                 <mesh filename="package://owi535/meshes/gearbox.dae" />
             </geometry>
         </visual>
-        <collision>
+        <!--collision>
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
-        </collision>
+        </collision-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <mass value="0.1" />

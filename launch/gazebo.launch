@@ -37,9 +37,7 @@
     /owi535/elbow_position_controller 
     /owi535/wrist_position_controller 
     /owi535/gripper_position_controller" />
-  
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-    <remap from="/joint_states" to="/owi535/joint_states" />
-  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
 
 </launch>

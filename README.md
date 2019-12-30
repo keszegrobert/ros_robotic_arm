@@ -10,7 +10,15 @@ and [here](https://www.thingiverse.com/thing:1455455)
 
 To start working with the model clone the repository into the src folder of an existing catkin workspace, and type:
 
-```roslaunch ros_robotic_arm owi535_world.launch```
+Launch the simulation in Gazebo by:
+```roslaunch owi535 gazebo.launch```
+
+Launch rqt control by:
+```roslaunch owi535 rqt.launch```
+
+Launch rviz by typing: 
+```roslaunch owi535 rviz.launch```
+
 
 ## No warranty
 The model is very inaccurate and the meshes are not intended to be used for manufacturing a real robot.

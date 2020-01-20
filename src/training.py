@@ -11,6 +11,8 @@ import geometry_msgs.msg
 from moveit_commander.conversions import pose_to_list
 from math import sqrt
 from random import random
+from qlearn import QLearn
+
 
 N_DISCRETE_ACTIONS = 81  # aka |{-1,0,1}|^4 = 3^4 = 81
 
@@ -62,6 +64,8 @@ class Owi535Model:
 
         # Calling ``stop()`` ensures that there is no residual movement
         move_group.stop()
+        rospy.sleep(0.1)
+
 
         # For testing:
         current_joints = move_group.get_current_joint_values()
@@ -100,11 +104,7 @@ class Owi535Model:
 
     def get_observation(self):
         current = self.move_group.get_current_pose().pose
-        return [
-            current.position.x,
-            current.position.y,
-            current.position.z
-        ]
+        return current
 
 
 class Owi535Env(gym.Env):
@@ -130,38 +130,34 @@ class Owi535Env(gym.Env):
 
     def get_reward(self, distance):
         result = 0
-        if self.previous_distance < distance:
+        if self.previous_distance <= distance:
+            if distance > 0.05:
+                result = -1000
+            else:
+                result = -10
+        else:
             result += 1
-        if distance < 0.01:
-            result += 10
-        if distance < 0.001:
-            result += 100
+            if distance < 0.01:
+                result += 10
+            if distance < 0.001:
+                result += 100
         return result
 
     def step(self, action):
         # Execute one time step within the environment
-        # print("+++++++++++++ Step {}++++++++++++++".format(action))
-        motor_base = action % 3
-        motor_shoulder = (action / 3) % 3
-        motor_elbow = (action / 9) % 3
-        motor_wrist = (action / 27) % 3
-        # print("base: {}, shoulder: {}, elbow: {}, wrist:{}".format(
-        #    motor_base - 1, motor_shoulder - 1,
-        #    motor_elbow - 1, motor_wrist - 1
-        # ))
         self.model.go_diff([
-            (motor_base - 1) * 3.141 / 180.0,
-            (motor_shoulder - 1) * 3.141 / 180.0,
-            (motor_elbow - 1) * 3.141 / 180.0,
-            (motor_wrist - 1) * 3.141 / 180.0,
+            action[0] * 3.141 / 180.0,
+            action[1] * 3.141 / 180.0,
+            action[2] * 3.141 / 180.0,
+            action[3] * 3.141 / 180.0,
         ])
 
         observation = self.model.get_observation()
         distance = self.model.aerial_distance(self.pose_goal)
         reward = self.get_reward(distance)
-        done = distance < 0.001
+        done = distance < 0.001 or distance > 0.05
+        info = "{}".format(round(distance, 4))
         self.previous_distance = distance
-        info = "{}".format(action)
         return observation, reward, done, info
 
     def reset(self):
@@ -169,6 +165,7 @@ class Owi535Env(gym.Env):
         # Reset the state of the environment to an initial state
         self.pose_goal = self.model.get_new_goal()
         self.model.go_home()
+        return self.model.get_observation()
 
 
     def render(self, mode='human', close=False):
@@ -182,19 +179,60 @@ def main():
         entry_point='training:Owi535Env',
     )
     env = gym.make('Owi535-v0')
-    for i_episode in range(20):
-        observation = env.reset()
-        for t in range(100):
+
+    qlearn = QLearn(
+        actions=range(env.action_space.n),
+        alpha=0.1, gamma=0.7, epsilon=0.9
+    )
+    epsilon_discount = 0.999
+    nepisodes = 500
+    nsteps = 100
+    highest_reward = 0
+
+    for i_episode in range(nepisodes):
+        cumulated_reward = 0
+        done = False
+        if qlearn.epsilon > 0.05:
+            qlearn.epsilon *= epsilon_discount
+
+        obs = env.reset()
+        state = ':'.join(map(str, [
+            int((obs.position.x - env.pose_goal.position.x) * 1000),
+            int((obs.position.y - env.pose_goal.position.y) * 1000),
+            int((obs.position.z - env.pose_goal.position.z) * 1000)
+        ]))
+        for t in range(nsteps):
             env.render()
-            print(observation)
-            action = env.action_space.sample()
-            observation, reward, done, info = env.step(action)
-            print("{}. reward: {}".format(t, reward))
+            # print(observation)
+            action = qlearn.chooseAction(state)
+            motor_base = (action % 3) - 1
+            motor_shoulder = ((action / 3) % 3) - 1
+            motor_elbow = ((action / 9) % 3) - 1
+            motor_wrist = ((action / 27) % 3) - 1
+            act = [motor_base, motor_shoulder, motor_elbow, motor_wrist]
+
+            obs, reward, done, info = env.step(act)
+            cumulated_reward += reward
+            if highest_reward < cumulated_reward:
+                highest_reward = cumulated_reward
+
+            nextState = ':'.join(map(str, [
+                int((obs.position.x - env.pose_goal.position.x) * 1000),
+                int((obs.position.y - env.pose_goal.position.y) * 1000),
+                int((obs.position.z - env.pose_goal.position.z) * 1000)
+            ]))
+            qlearn.learn(state, action, reward, nextState)
+
+            print("{}. reward: {} distance:{} //{}".format(
+                t, reward, info, nextState))
             if done:
-                print("Episode {} finished after {} timesteps".format(
-                    i_episode, t + 1
-                ))
                 break
+            else:
+                state = nextState
+        print("Episode {} finished after {} timesteps, reward: {}".format(
+            i_episode, t + 1, cumulated_reward
+        ))
+
     env.close()
 
 

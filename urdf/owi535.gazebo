@@ -52,7 +52,7 @@
           <format>R8G8B8</format>
         </image>
         <clip>
-          <near>0.02</near>
+          <near>0.05</near>
           <far>300</far>
         </clip>
         <noise>
@@ -68,6 +68,7 @@
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <cameraName>owi535/camera1</cameraName>
+        <!--frameId>camera_link</frameId-->
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera_link</frameName>

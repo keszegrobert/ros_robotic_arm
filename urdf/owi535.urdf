@@ -48,7 +48,7 @@
         <child link="battery_pack" />
         <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
-    <link name="rotation_base">
+    <link name="rotation_base_link">
         <visual>
             <geometry>
                 <mesh filename="package://owi535/meshes/rotation_base.dae" />
@@ -65,7 +65,7 @@
     </link>
     <joint name="rotator" type="fixed">
         <parent link="base_link" />
-        <child link="rotation_base" />
+        <child link="rotation_base_link" />
         <origin xyz="0 0 0" rpy="0 0 0" />
     </joint>
     <link name="switchboard">
@@ -104,7 +104,7 @@
         </inertial>
     </link>
     <joint name="rotationbase" type="revolute">
-        <parent link="base_link" />
+        <parent link="rotation_base_link" />
         <child link="shoulder_motor" />
         <origin xyz="0 0 0.0580" rpy="0 0 0" />
         <axis xyz="0 0 1" />
@@ -235,7 +235,7 @@
         <child link="wrist_motor" />
         <origin xyz="-0.0721 0 0" rpy="0 0 0" />
     </joint>
-    <link name="wrist_base">
+    <link name="wrist_base_link">
         <visual>
             <geometry>
                 <mesh filename="package://owi535/meshes/wrist.dae" />
@@ -252,7 +252,7 @@
     </link>
     <joint name="wrist_base" type="fixed">
         <parent link="wrist_motor" />
-        <child link="wrist_base" />
+        <child link="wrist_base_link" />
         <origin xyz="-0.03 0 0" rpy="0 0 3.14" />
     </joint>
     <link name="back">
@@ -272,7 +272,7 @@
         </inertial>
     </link>
     <joint name="wrist" type="revolute">
-        <parent link="wrist_base" />
+        <parent link="wrist_base_link" />
         <child link="back" />
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="0 1.0 0" />
@@ -301,34 +301,31 @@
     </joint>
 
     <joint name="camera_joint" type="fixed">
-      <origin xyz="0.04 0 -0.01" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <parent link="back"/>
       <child link="camera_link"/>
     </joint>
 
     <link name="camera_link">
-      <collision>
-        <origin xyz="0 0 0.02" rpy="0 0 0"/>
+      <visual>
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <geometry>
           <box size="0.08 0.04 0.01"/>
         </geometry>
-      </collision>
-
+        <material name="blue"/>
+      </visual>
+    </link>
   <!-- generate an optical frame http://www.ros.org/reps/rep-0103.html#suffix-frames
       so that ros and opencv can operate on the camera frame correctly -->
   <joint name="camera_optical_joint" type="fixed">
-    <!-- these values have to be these values otherwise the gazebo camera image
-        won't be aligned properly with the frame it is supposedly originating from -->
     <origin xyz="0 0 0" rpy="-1.570796325 0 -1.570796325"/>
     <parent link="camera_link"/>
     <child link="camera_link_optical"/>
   </joint>
 
   <link name="camera_link_optical">
-  </link>
-
       <visual>
-        <origin xyz="0 0 0.02" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
           <box size="0.08 0.04 0.01"/>
         </geometry>
@@ -339,7 +336,7 @@
         <mass value="1e-5" />
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-      </inertial>
+      </inertial> 
     </link>
 
 
@@ -593,10 +590,12 @@
 
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/owi535</robotNamespace>
         </plugin>
     </gazebo>
   <gazebo>
     <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+        <!--robotNamespace>/owi535</robotNamespace-->
         <jointName>rotationbase, shoulder, elbow, wrist, left_grip, right_grip, left_ph, right_ph, left_f, right_f</jointName>
     </plugin>
   </gazebo>
@@ -605,15 +604,16 @@
     <sensor type="camera" name="camera1">
       <update_rate>30.0</update_rate>
       <camera name="head">
+        <!--pose>0 0 0 0 1.57 0</pose-->
         <horizontal_fov>1.3962634</horizontal_fov>
         <image>
-          <width>400</width>
-          <height>400</height>
+          <width>800</width>
+          <height>600</height>
           <format>R8G8B8</format>
         </image>
         <clip>
-          <near>0.02</near>
-          <far>300</far>
+          <near>0.07</near>
+          <far>100</far>
         </clip>
         <noise>
           <type>gaussian</type>
@@ -627,7 +627,7 @@
         <cameraName>owi535/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera_link</frameName>
+        <frameName>camera_link_optical</frameName>
         <hackBaseline>0.07</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>

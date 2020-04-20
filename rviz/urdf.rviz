@@ -1,6 +1,6 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 78
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
@@ -8,8 +8,9 @@ Panels:
         - /Status1
         - /RobotModel1
         - /TF1
+        - /Camera1
       Splitter Ratio: 0.5
-    Tree Height: 557
+    Tree Height: 140
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -18,7 +19,7 @@ Panels:
       - /2D Nav Goal1
       - /Publish Point1
     Name: Tool Properties
-    Splitter Ratio: 0.588679
+    Splitter Ratio: 0.5886790156364441
   - Class: rviz/Views
     Expanded:
       - /Current View1
@@ -28,7 +29,11 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: Camera
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -38,7 +43,7 @@ Visualization Manager:
       Color: 160; 160; 164
       Enabled: true
       Line Style:
-        Line Width: 0.03
+        Line Width: 0.029999999329447746
         Value: Lines
       Name: Grid
       Normal Cell Count: 0
@@ -50,7 +55,7 @@ Visualization Manager:
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
       Value: true
-    - Alpha: 1.0
+    - Alpha: 0.5
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
@@ -60,12 +65,110 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
+        back:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        right_leg:
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        battery_pack:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        elbow_motor:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        humerus_left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        humerus_right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_carpal:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_finger:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_phalange:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        radius_link_down:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        radius_link_up:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_carpal:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_finger:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_phalange:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rotation_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        shield:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        shoulder_motor:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        switchboard:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        wrist_base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wrist_motor:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -81,24 +184,179 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        ar_marker_132:
+          Value: true
+        ar_marker_135:
+          Value: true
+        ar_marker_142:
+          Value: true
+        ar_marker_19:
+          Value: true
+        ar_marker_196:
+          Value: true
+        ar_marker_21:
+          Value: true
+        ar_marker_22:
+          Value: true
+        ar_marker_223:
+          Value: true
+        ar_marker_23:
+          Value: true
+        ar_marker_243:
+          Value: true
+        ar_marker_244:
+          Value: true
+        ar_marker_31:
+          Value: true
+        ar_marker_79:
+          Value: true
+        ar_marker_83:
+          Value: true
+        back:
+          Value: true
         base_link:
           Value: true
-        right_leg:
+        battery_pack:
           Value: true
-      Marker Scale: 0.5
+        camera_link:
+          Value: true
+        elbow_motor:
+          Value: true
+        humerus_left:
+          Value: true
+        humerus_right:
+          Value: true
+        left_carpal:
+          Value: true
+        left_finger:
+          Value: true
+        left_phalange:
+          Value: true
+        owi535/camera_link:
+          Value: true
+        radius_link_down:
+          Value: true
+        radius_link_up:
+          Value: true
+        right_carpal:
+          Value: true
+        right_finger:
+          Value: true
+        right_phalange:
+          Value: true
+        rotation_base_link:
+          Value: true
+        shield:
+          Value: true
+        shoulder_motor:
+          Value: true
+        switchboard:
+          Value: true
+        world:
+          Value: true
+        wrist_base_link:
+          Value: true
+        wrist_motor:
+          Value: true
+      Marker Scale: 0.20000000298023224
       Name: TF
-      Show Arrows: false
-      Show Axes: false
+      Show Arrows: true
+      Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          right_leg:
-            {}
+        world:
+          base_link:
+            battery_pack:
+              {}
+            rotation_base_link:
+              shoulder_motor:
+                humerus_left:
+                  elbow_motor:
+                    radius_link_down:
+                      {}
+                    radius_link_up:
+                      {}
+                    wrist_motor:
+                      wrist_base_link:
+                        back:
+                          camera_link:
+                            ar_marker_132:
+                              {}
+                            ar_marker_135:
+                              {}
+                            ar_marker_142:
+                              {}
+                            ar_marker_19:
+                              {}
+                            ar_marker_196:
+                              {}
+                            ar_marker_21:
+                              {}
+                            ar_marker_22:
+                              {}
+                            ar_marker_223:
+                              {}
+                            ar_marker_23:
+                              {}
+                            ar_marker_243:
+                              {}
+                            ar_marker_244:
+                              {}
+                            ar_marker_31:
+                              {}
+                            ar_marker_79:
+                              {}
+                            ar_marker_83:
+                              {}
+                            owi535/camera_link:
+                              {}
+                          left_carpal:
+                            {}
+                          left_phalange:
+                            left_finger:
+                              {}
+                          right_carpal:
+                            {}
+                          right_phalange:
+                            right_finger:
+                              {}
+                          shield:
+                            {}
+                  humerus_right:
+                    {}
+            switchboard:
+              {}
       Update Interval: 0
+      Value: true
+    - Class: rviz/Camera
+      Enabled: true
+      Image Rendering: background and overlay
+      Image Topic: /owi535/camera1/image_raw
+      Name: Camera
+      Overlay Alpha: 0.5
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+      Visibility:
+        Grid: true
+        Marker: true
+        RobotModel: true
+        TF: true
+        Value: true
+      Zoom Factor: 1
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: visualization_marker
+      Name: Marker
+      Namespaces:
+        basic_shapes: true
+      Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
+    Default Light: true
     Fixed Frame: base_link
     Frame Rate: 30
   Name: root
@@ -110,7 +368,10 @@ Visualization Manager:
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
       Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
     - Class: rviz/SetGoal
       Topic: /move_base_simple/goal
     - Class: rviz/PublishPoint
@@ -120,30 +381,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.3747
+      Distance: 1.9923031330108643
       Enable Stereo Rendering:
-        Stereo Eye Separation: 0.06
+        Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.04506
-        Y: 0.01155
-        Z: 0.080237
+        X: -0.04506000131368637
+        Y: 0.011549999937415123
+        Z: 0.0802370011806488
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
       Name: Current View
-      Near Clip Distance: 0.01
-      Pitch: 0.62
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.9200000762939453
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.74
+      Yaw: 3.6649997234344482
     Saved: ~
 Window Geometry:
+  Camera:
+    collapsed: false
   Displays:
     collapsed: false
-  Height: 882
+  Height: 696
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000013c000002c3fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006400fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730100000043000002c3000000de00fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000002c3fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730100000043000002c3000000b800fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004c000000044fc0100000002fb0000000800540069006d00650100000000000004c00000025800fffffffb0000000800540069006d0065010000000000000450000000000000000000000269000002c300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000001560000022afc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c0061007900730100000027000000c9000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000c00430061006d00650072006101000000f60000015b0000001600ffffff000000010000010f0000022afc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007301000000270000022a000000a400fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004bf00000044fc0100000002fb0000000800540069006d00650100000000000004bf000002eb00fffffffb0000000800540069006d006501000000000000045000000000000000000000024e0000022a00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -152,6 +418,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1216
-  X: 17
-  Y: 28
+  Width: 1215
+  X: 65
+  Y: 24

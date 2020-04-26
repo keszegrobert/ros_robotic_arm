@@ -11,10 +11,10 @@
     <include>
       <uri>model://sun</uri>
     </include>
-    <gravity>0</gravity>
+    <gravity>0 0 0</gravity>
 
    <light type="point" name="point_light">
-      <pose>0 0 0.5 0 0 0</pose>
+      <pose>0.5 0 0.5 0 0 0</pose>
       <diffuse>1 1 1 1</diffuse>
       <specular>0 0 0 1</specular>
       <attenuation>
@@ -25,7 +25,6 @@
       </attenuation>
       <cast_shadows>false</cast_shadows>
     </light>
-
     <!-- Focus camera on tall pendulum -->
     <gui fullscreen='0'>
       <camera name='user_camera'>

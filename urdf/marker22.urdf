@@ -1,5 +1,11 @@
 <robot name="test_marker">
-    <link name="base_link">
+    <link name="world"/>
+    <joint name="fixed22" type="fixed">
+        <parent link="world"/>
+        <child link="marker22"/>
+        <origin xyz="-0.5 0 0.3" rpy="0 1.57 0" />
+    </joint>
+    <link name="marker22">
         <collision>
             <geometry>
                 <box size="0.05 0.05 0.05"/>
@@ -12,7 +18,7 @@
         </visual>
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
+            <mass value="0.001" />
             <inertia
               ixx="1.0" ixy="0.0" ixz="0.0"
               iyy="1.0" iyz="0.0"

@@ -21,22 +21,26 @@
   <param name="robot_description" command="$(find xacro)/xacro $(find owi535)/urdf/owi535.urdf" />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -x -0.0 -y 0.0 -R 0.0 -P 0.0 -Y 0.0 -model owi535 -param robot_description"/>
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+    args="-urdf -x -0.0 -y 0.0 -R 0.0 -P 0.0 -Y 0.0 -model owi535 -param robot_description"/>
 
-  <node name="mark_spawner_21" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find owi535)/urdf/marker21.urdf -urdf -x -0.55 -y 0.25 -z 0.025 -R 1.57 -P 0.0 -Y 1.57 -model test_marker_21" />
+  <node name="mark_spawner_21" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+    args="-file $(find owi535)/urdf/marker21.urdf -urdf -model test_marker_21" />
 
-  <node name="mark_spawner_22" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find owi535)/urdf/marker22.urdf -urdf -x -0.55 -y -0.0 -z 0.025 -R 1.57 -P 0.0 -Y 1.57 -model test_marker_22" />
+  <node name="mark_spawner_22" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+   args="-file $(find owi535)/urdf/marker22.urdf -urdf -model test_marker_22" />
 
-  <node name="mark_spawner_23" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-file $(find owi535)/urdf/marker23.urdf -urdf -x -0.55 -y -0.25 -z 0.025 -R 1.57 -P 0.0 -Y 1.57 -model test_marker_23" />
+  <node name="mark_spawner_23" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+    args="-file $(find owi535)/urdf/marker23.urdf -urdf -model test_marker_23" />
 
-  <rosparam file="$(find owi535)/config/controllers.yaml" command="load"/>
+  <!--rosparam file="$(find owi535)/config/controllers.yaml" command="load"/>
 
   <node name="controller_spawner" pkg="controller_manager" type="spawner" 
     args="/owi535/rotationbase_position_controller 
     /owi535/shoulder_position_controller 
     /owi535/elbow_position_controller 
     /owi535/wrist_position_controller 
-    /owi535/gripper_position_controller" />
+    /owi535/gripper_position_controller" /-->
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
   <include file="$(find owi535)/launch/single.launch">

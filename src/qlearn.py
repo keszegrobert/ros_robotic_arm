@@ -8,6 +8,7 @@ Inspired by https://gym.openai.com/evaluations/eval_kWknKOkPQ7izrixdhriurA
         @author: Victor Mayoral Vilches <victor@erlerobotics.com>
 '''
 import random
+from datetime import datetime
 
 
 class QLearn:
@@ -17,6 +18,12 @@ class QLearn:
         self.alpha = alpha      # discount constant
         self.gamma = gamma      # discount factor
         self.actions = actions
+        now = datetime.now()
+        self.logname = now.strftime("%Y%m%d_%H%M%S.log")
+
+    def print_statistics(self):
+        print("learned nodes: ", len(self.q))
+        
 
     def getQ(self, state, action):
         return self.q.get((state, action), 0.0)
@@ -58,5 +65,9 @@ class QLearn:
         return action
 
     def learn(self, state1, action1, reward, state2):
+        with open(self.logname, "a") as f:
+            f.write('{{"s":"{}", "a":"{}", "r":"{}", "g":"{}"}},\n'.format(
+                state1, action1, reward, state2)
+            )
         maxqnew = max([self.getQ(state2, a) for a in self.actions])
         self.learnQ(state1, action1, reward, reward + self.gamma*maxqnew)

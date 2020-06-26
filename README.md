@@ -2,6 +2,8 @@
 
 This package contains files for my robotic arm similar to owi535 which I use in my ROS workspace.
 This repository is intended to be a good starting point for working with owi535 in a ROS environment.
+![Blender screenshot about owi535](https://github.com/keszegrobert/ros_robotic_arm/blob/master/Screenshot%202019-11-20%20at%2022.08.37.png)
+
 It contains a URDF file which is a model of the robot used in a gazebo simulation.
 The parts of the model are Collada meshes cut and exported from existing STL models found [here](https://www.thingiverse.com/thing:2314339)
 and [here](https://www.thingiverse.com/thing:1455455)

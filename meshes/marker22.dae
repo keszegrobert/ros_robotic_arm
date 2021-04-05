@@ -26,7 +26,7 @@
         <technique sid="common">
           <lambert>
             <emission>
-              <color sid="emission">0 0 0 1</color>
+              <color sid="emission">1 1 1 1</color>
             </emission>
             <diffuse>
               <texture texture="MarkerData_22_png-sampler" texcoord="UVMap"/>
@@ -96,7 +96,7 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Cube" name="Cube" type="NODE">
-        <matrix sid="transform">0.025 0 0 0 0 0.025 0 0 0 0 0.005 0 0 0 0 1</matrix>
+        <matrix sid="transform">0.05 0 0 0 0 0.05 0 0 0 0 0.0001 0 0 0 0 1</matrix>
         <instance_geometry url="#Cube-mesh" name="Cube">
           <bind_material>
             <technique_common>

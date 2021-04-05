@@ -2,7 +2,7 @@
 
   <!-- these are the arguments you can pass this launch file, for example paused:=true -->
   <arg name="paused" default="false"/>
-  <arg name="use_sim_time" default="true"/>
+  <arg name="use_sim_time" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
@@ -33,15 +33,15 @@
   <node name="mark_spawner_23" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
     args="-file $(find owi535)/urdf/marker23.urdf -urdf -model test_marker_23" />
 
-  <!--rosparam file="$(find owi535)/config/controllers.yaml" command="load"/>
+  <rosparam file="$(find owi535)/config/controllers.yaml" command="load"/>
 
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" 
-    args="/owi535/rotationbase_position_controller 
-    /owi535/shoulder_position_controller 
-    /owi535/elbow_position_controller 
-    /owi535/wrist_position_controller 
-    /owi535/gripper_position_controller" /-->
-
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" ns="/owi535"
+    args="rotationbase_position_controller 
+    shoulder_position_controller 
+    elbow_position_controller 
+    wrist_position_controller 
+    gripper_position_controller" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
   <include file="$(find owi535)/launch/single.launch">
   </include>
